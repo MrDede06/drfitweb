@@ -1,0 +1,5 @@
+----------Windows Local----------------
+activate virtualenv: .\Scripts\activate
+setup django project: 
+  django-admin startproject drfitweb (it will create fist directory name driftweb and second dir driftweb inside)
+python .\manage.py runserver 127.0.0.1:8000
