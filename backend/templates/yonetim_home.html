@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>            
+  </head>
+    
+  <nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Yönetim Sayfası</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="logout">Çıkış</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{% static "images/dietO.jpg" %}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Diyet Yönetimi Bölümüne Buradan Geçiş Yapabilirsiniz.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Diet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{% static "images/gym.jpg" %}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Spor Yönetimi Bölümüne Buradan Geçiş Yapabilirsiniz.</p>
+        </div>
+        <div class="card-action">
+          <a href="spor_main">Spor</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{% static "images/user.png" %}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Üye Listelerine Buradan Geçiş Yapabilirsiniz.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Üyeler</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{% static "images/finance.jpg" %}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Muhasebe Gelir ve Gider Bilgilerine Buradan Ulaşabilirsiniz.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Muhasebe</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="{% static "images/video-reklam.jpg" %}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>Duyuru, Video, Fotoğraf veya Haber Paylaşmak İçin Buradan Geçiş Yapabilirsiniz.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Genel Paylaşımlar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

@@ -1,5 +1,34 @@
-----------Windows Local----------------
+Flutter Fitness App:
+  https://github.com/feMoraes0/fitness-ui
+  https://flutterawesome.com/flutter-tutorial-explaining-to-create-a-fitness-application-ui/
+
+Python tutorials:
+  https://www.w3schools.com/python/python_tuples.asp
+  https://www.tutorialspoint.com/python3/python_modules.htm
+
+Django Tutorials:
+  https://www.youtube.com/watch?v=yD0_1DPmfKM&list=PLQVvvaa0QuDe9nqlirjacLkBYdgc2inh3&index=1
+
+---------------------------Windows Local----------------
 activate virtualenv: .\Scripts\activate
 setup django project: 
   django-admin startproject drfitweb (it will create fist directory name driftweb and second dir driftweb inside)
 python .\manage.py runserver 127.0.0.1:8000
+
+starting new app in django:  python .\manage.py startapp backend
+
+*** When you change models.py 
+  1th -> python manage.py makemigrations
+  then -> python manage.py migrate
+
+-Creaye superuser -> python manage.py createsuperuser
+
+
+https://mdbootstrap.com/docs/jquery/css/background-image/#v-1
+
+
+drfitadmin -> salx8Usrt12
+
+
+kekele.html:
+  form bootstrap: https://getbootstrap.com/docs/4.3/components/forms/
