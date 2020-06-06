@@ -9,18 +9,19 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  </head>
   <nav class="nav-extended">
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Spor Yönetim Sayfası</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="logout">Çıkış</a></li>
+        <li><a href="/yonetim/logout/">Çıkış</a></li>
       </ul>
     </div>
+    <!--
     <div class="sidebar">
-      <a href="spor_kategori"><i class="fa fa-fw fa-wrench"></i> Kategori Ekle</a>
+      <a href="#"><i class="fa fa-fw fa-wrench"></i> Kategori Ekle</a>
       <a href="#services"><i class="fa fa-fw fa-wrench"></i> Alt Kategori Ekle</a>
       <a href="#services"><i class="fa fa-fw fa-tv"></i> Kategorileri Listele</a>
       <a href="#home"><i class="fa fa-fw fa-wrench"></i> Program Ekle</a>
@@ -29,14 +30,46 @@
       <a href="#services"><i class="fa fa-fw fa-video-camera"></i> Video Ekle</a>      
       <a href="#clients"><i class="fa fa-fw fa-user"></i> Spor Üyeleri</a>
       <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-      <a href="#contact"><i class="fa fa-fw fa-step-backward"></i> Ana Sayfa</a>
+      <a href="/yonetim/"><i class="fa fa-fw fa-step-backward"></i> Ana Sayfa</a>
     </div>
+    //-->
   </nav>
  
+  <h1>Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1>
 
-  <!-- The sidebar -->
+  <div class="form_container">
+    <form align="center">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    
+    </form>
 
+  </div>
+  
   <style>
+    .from_container{
+      position: absolute;
+      top: 50px;
+      padding-left: 250px;
+    }
+     h1 {      
+      position: absolute;
+      top: 50px;
+      padding-left: 250px;
+      font-size: 30px;
+     }
     .sidebar {
       top: 64px;
       height: 100%;
