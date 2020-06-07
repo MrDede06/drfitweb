@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.admin.views.decorators import staff_member_required
 
+app_name = "backend"
+
 @staff_member_required
 def kategori_ekle(request):
     return render(request = request,
