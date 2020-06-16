@@ -9,3 +9,8 @@ app_name = "backend"
 def kategori_ekle(request):
     return render(request = request,
                   template_name='spor_kategori_ekle.html')
+
+@staff_member_required
+def altkategori_ekle(request):
+    return render(request = request,
+                  template_name='spor_altkategori_ekle.html')

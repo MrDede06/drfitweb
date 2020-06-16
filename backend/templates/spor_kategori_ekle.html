@@ -2,34 +2,72 @@
 {% extends 'spor_header.html' %}
 {% load static %}
 
-{% block content %}  
-  <h1>Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1>
-  <div class="form_container">
-    <div class"deneme">
-      <form action="/action_page.php">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
-    
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-    
-        <label for="country">Country</label>
-        <select id="country" name="country">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select>
-        
-        <input type="submit" value="Submit">
-      </form>
-    </div>    
+{% block content %}
+  
+  <h1>Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1> 
+  
+  <div class="row">
+    <div class="col-lg-7 col-md-offset-2" >
+      <section class="panel" >
+        <div class="panel-body">
+          <div class="form-horizontal">
+  
+            <form action="/addcategoryfy" id="kateform" method="post" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Türkçe Kategori ismi belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="trkateisim" id="trkateisim" placeholder="Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Türkçe Kategori açıklamsı belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="trkateaciklama" id="trkateaciklama" placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">İngilizce Kategori ismi belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="enkateisim" id="enkateisim" placeholder="İngilizce Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">İngilizce Kategori açıklaması belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="enkateaciklama" id="enkateaciklama" placeholder="İngilizce Kategori açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Kategori Resmini belirleyin:</label>
+                <input name="file" id="file"  type="file"  required />
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Kategoriyi Onaylayın:</label>
+                <div class="col-lg-7">
+                  <div id="kategoriekle" class="btn btn-success" style="margin-top:10px;" >İşlemi tamamla</div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
   </div>
+
   <style>
-    .form_container{
-      position: absolute;
-      top: 250px;
-      padding-left: 550px;
-    }
+
     h1 {      
       position: absolute;
       top: 70px;
@@ -40,10 +78,10 @@
      input[type=text], select {
       width: 100%;
       padding: 12px 20px;
-      margin: 8px 0;
+      margin: 10px 0;
       display: inline-block;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      border: 1px solid rgb(110, 20, 20);
+      border-radius: 8px;
       box-sizing: border-box;
     }
 
@@ -61,11 +99,26 @@
     input[type=submit]:hover {
       background-color: #45a049;
     }
+    .panel {
+      /* Yazi ve kutucuklari saga dogru uzatir*/
+      width: 1500px;
+      
+      position: absolute;
+      
+      /* Butun paneli asagi kaydirir */
+      margin: 150px auto;
+      
+      /*kutu sinir cizgisinin kalinligi*/
+      border: 1px solid;
+      
+      background-color: aliceblue;
 
-    .deneme {
-      border-radius: 5px;
-      background-color: #f2f2f2;
-      padding: 20px;
+      /* Panelin Arka planini 4 boyuttan asagi yukari saga sola kaydirmak ucun */
+      padding: 100px 10px 100px; 
+      
+      /* Yazi ve kutucuklarin tamamini sola kaydirir */
+      padding-right: 210px;
+      
     }
 
   </style>
