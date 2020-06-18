@@ -4,7 +4,7 @@
 
 {% block content %}
   
-  <h1>Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1> 
+  <h1>Form Test<i class="fa fa-fw fa-wrench"></i></h1> 
   
   <div class="row">
     <div class="col-lg-7 col-md-offset-2" >
@@ -12,48 +12,28 @@
         <div class="panel-body">
           <div class="form-horizontal">
   
-            <form action="/yonetim/spor_main/spor_kategori/" id="kateform" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
+            <form action="/yonetim/spor_main/form_test/"  method="post">
+                {% csrf_token %}
               <div class="form-group">
                 <label class="col-lg-4 control-label">Türkçe Kategori ismi belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="trkateisim" id="trkateisim" placeholder="Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="trkateisim"  placeholder="Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-lg-4 control-label">Türkçe Kategori açıklamsı belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="trkateaciklama" id="trkateaciklama" placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="trkateaciklama"  placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-lg-4 control-label">İngilizce Kategori ismi belirleyin:</label>
-                <div class="col-lg-8">
-                  <input type="text" name="enkateisim" id="enkateisim" placeholder="İngilizce Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-lg-4 control-label">İngilizce Kategori açıklaması belirleyin:</label>
-                <div class="col-lg-8">
-                  <input type="text" name="enkateaciklama" id="enkateaciklama" placeholder="İngilizce Kategori açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-lg-4 control-label">Kategori Resmini belirleyin:</label>
-                <input name="myfile" id="file"  type="file"/>
               </div>
 
               <div class="form-group">
                 <label class="col-lg-4 control-label">Kategoriyi Onaylayın:</label>
                 <div class="col-lg-7">
-                  <input type="submit" value="OK">
+                    <input type="submit" value="OK">
                 </div>
               </div>
-
             </form>
 
           </div>

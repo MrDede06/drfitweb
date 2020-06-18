@@ -61,10 +61,9 @@ class Program(models.Model):
     video = models.FileField(blank=True, null=True)
     def __unicode__(self):
         return u"name : %s "% (self.name_en)
-'''
-class Yonetim_User (models.Model):
-    yonetim_name = models.CharField(max_length=1000,blank=True , null=True)
-    yonetim_password = models.CharField(max_length=1000,blank=True , null=True)    
+
+class Form_test(models.Model):
+    name_test = models.TextField(max_length=1000,blank=True , null=True)
+    explain_test = models.TextField(max_length=1000,blank=True , null=True)
     def __unicode__(self):
-        return u"name : %s "% (self.yonetim_name)
-'''
+        return u'Category name : %s ' % (self.id)
