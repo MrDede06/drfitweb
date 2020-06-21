@@ -32,3 +32,7 @@ drfitadmin -> salx8Usrt12
 
 kekele.html:
   form bootstrap: https://getbootstrap.com/docs/4.3/components/forms/
+
+file upload: https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html
+
+azure storage: https://pypi.org/project/azure-storage-blob/
