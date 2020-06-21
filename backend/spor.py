@@ -7,6 +7,7 @@ import uuid , json , string , random, urllib, base64, os, sys
 from django.utils.encoding import smart_str
 from django.core.files.storage import FileSystemStorage
 from azure.storage.blob import BlobServiceClient, BlobClient
+from django.contrib import messages
 
 app_name = "backend"
 
@@ -20,7 +21,7 @@ string= "DefaultEndpointsProtocol=https;AccountName=drfitstorage;AccountKey=ueV0
 @csrf_exempt
 def kategori_ekle(request):
     data = {}
-    
+
     if request.method == 'GET':
         return render(request = request,
                   template_name='spor_kategori_ekle.html')
@@ -32,23 +33,36 @@ def kategori_ekle(request):
 
         enkateisim = request.POST.get('enkateisim')
         enkateaciklama = request.POST.get('enkateaciklama')
- 
-        filez = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(filez.name, filez)
-                
-        newBasename = "sporKategory" + trkateisim + ".jpg"
-        newname = os.path.join(path, newBasename)        
-        oldname = os.path.join(path, filename)
-        os.rename(oldname, newname)
-        
-        blob = BlobClient.from_connection_string(container_name="drfitcontainer", conn_str=string, blob_name=newBasename)
-        with open(newname, "rb") as data:
-            blob.upload_blob(data)
-        
-        os.remove(newname)     
-    
 
+        
+        filez = request.FILES['file']
+        if trkateisim:
+            fs = FileSystemStorage()
+            filename = fs.save(filez.name, filez)
+                    
+            newBasename = "sporKategory" + trkateisim + ".jpg"
+            newname = os.path.join(path, newBasename)        
+            oldname = os.path.join(path, filename)
+            os.rename(oldname, newname)
+            
+            blob = BlobClient.from_connection_string(container_name="drfitcontainer", conn_str=string, blob_name=newBasename)
+            try: 
+                with open(newname, "rb") as data:
+                    blob.upload_blob(data)
+                    messages.success(request, f"Kategori Basari ile Kaydedildi")
+            except OSError:
+                print ("Could not open/read file:", newname)
+                sys.exit()
+            
+            os.remove(newname)     
+            return render(request = request,
+                    template_name='spor_kategori_ekle.html')
+        
+        
+        else:
+            messages.success(request, f"FAILSSS")
+            return render(request = request,
+                    template_name='spor_kategori_ekle.html')
 
 @staff_member_required
 def altkategori_ekle(request):
