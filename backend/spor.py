@@ -49,7 +49,7 @@ def kategori_ekle(request):
             try: 
                 with open(newname, "rb") as data:
                     blob.upload_blob(data)
-                    messages.success(request, f"Kategori Basari ile Kaydedildi")
+                    messages.success(request, "Kategori Basari ile Kaydedildi")
             except OSError:
                 print ("Could not open/read file:", newname)
                 sys.exit()
@@ -60,7 +60,7 @@ def kategori_ekle(request):
         
         
         else:
-            messages.success(request, f"FAILSSS")
+            messages.success(request, "Lutfen Turkce Kategori Ismi Belirleyin")
             return render(request = request,
                     template_name='spor_kategori_ekle.html')
 
@@ -72,3 +72,12 @@ def altkategori_ekle(request):
 
 
 
+
+@staff_member_required
+def form_test(request):
+    messages.success(request, "FAILSSS")
+    messages.success(request, "FAILSSS")
+    messages.success(request, "FAILSSS")
+    messages.success(request, "FAILSSS")
+    return render(request = request,
+                  template_name='form_test.html')

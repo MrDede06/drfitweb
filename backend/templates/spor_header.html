@@ -4,15 +4,12 @@
 
 <head>
          
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}" media="all">
-  <script type="text/javascript" src="{% static 'js/toastr.min.js' %}"></script>  
+
 
 </head>
 
@@ -41,7 +38,7 @@
           <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
       {% endif %}
   {% endfor %}
-  {% endif %}
+ {% endif %}
   <div class="sidebar">
       <a href="/yonetim/spor_main/spor_kategori/"><i class="fa fa-fw fa-wrench"></i> Kategori Ekle</a>
       <a href="/yonetim/spor_main/spor_altkategori/"><i class="fa fa-fw fa-wrench"></i> Alt Kategori Ekle</a>
@@ -108,7 +105,17 @@
     }
 
   </style>
-
+  
+  <script>
+        $(document).ready(function() {
+        // messages timeout for 10 sec 
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 7000
+        ); // <-- time in milliseconds, 1000 =  1 sec
+    });
+  </script>
+  
 </body>
  
 </html>

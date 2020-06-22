@@ -36,3 +36,23 @@ kekele.html:
 file upload: https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html
 
 azure storage: https://pypi.org/project/azure-storage-blob/
+
+
+OLD CCS for panel:
+        width: 1500px;
+      
+      position: absolute;
+      
+      /* Butun paneli asagi kaydirir */
+      margin: 150px auto;
+      
+      /*kutu sinir cizgisinin kalinligi*/
+      border: 1px solid;
+      
+      background-color: aliceblue;
+
+      /* Panelin Arka planini 4 boyuttan asagi yukari saga sola kaydirmak ucun */
+      padding: 100px 10px 100px; 
+      
+      /* Yazi ve kutucuklarin tamamini sola kaydirir */
+      padding-right: 210px;

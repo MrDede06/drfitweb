@@ -53,7 +53,17 @@
                   <input type="submit" value="ONAYLA"> 
                 </div>
               </div>
-
+              
+              {% if messages %}
+              {% for message in messages %}
+                <div class="message">
+                  <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                  </div>
+                </div>
+              {% endfor %}
+              {% endif %}
             </form>
 
           </div>
@@ -110,5 +120,15 @@
 
   </style>
 
+  <script>
+        $(document).ready(function() {
+        // messages timeout for 10 sec 
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 7000
+        ); // <-- time in milliseconds, 1000 =  1 sec
+    });
+  </script>
 
 {% endblock %}
+

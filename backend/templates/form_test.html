@@ -27,7 +27,11 @@
                   <input type="text" name="trkateaciklama"  placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
-
+              {% if messages %}
+              {% for message in messages %}
+                <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
+              {% endfor %}
+              {% endif %}
               <div class="form-group">
                 <label class="col-lg-4 control-label">Kategoriyi Onaylayın:</label>
                 <div class="col-lg-7">
