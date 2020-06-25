@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import uuid , json , string , random, urllib, base64, os, sys
 from django.utils.encoding import smart_str
 from django.core.files.storage import FileSystemStorage
-from azure.storage.blob import BlobServiceClient, BlobClient
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 from django.contrib import messages
 
 app_name = "backend"
@@ -36,31 +36,42 @@ def kategori_ekle(request):
 
         
         filez = request.FILES['file']
+
         if trkateisim:
             fs = FileSystemStorage()
             filename = fs.save(filez.name, filez)
                     
-            newBasename = "sporKategory" + trkateisim + ".jpg"
+            num = random.randrange(1, 10**3)
+            newBasename = "sporKategory" + trkateisim + str(num) + ".jpg"
             newname = os.path.join(path, newBasename)        
             oldname = os.path.join(path, filename)
             os.rename(oldname, newname)
             
             blob = BlobClient.from_connection_string(container_name="drfitcontainer", conn_str=string, blob_name=newBasename)
-            try: 
-                with open(newname, "rb") as data:
-                    blob.upload_blob(data)
-                    messages.success(request, "Kategori Basari ile Kaydedildi")
-            except OSError:
-                print ("Could not open/read file:", newname)
-                sys.exit()
             
+            
+            with open(newname, "rb") as data:
+                    blob.upload_blob(data)
+            try: 
+                getcategory = Category.objects.get(name_tr=trkateisim)
+                messages.error(request, "Bu Kategori zaten mevcut, baska kategori ekleyin")
+            except OSError:
+                messages.error(request, "Resim kaydedilemedi tekrar deneyin")
+            except Category.DoesNotExist:
+                savecate = Category(name_en = enkateisim,
+                name_tr = trkateisim,
+                explain_en = enkateaciklama,
+                explain_tr = trkateaciklama,
+                image = newBasename)
+                savecate.save()
+                messages.success(request, "Kategori Basari ile Kaydedildi")
+
             os.remove(newname)     
             return render(request = request,
                     template_name='spor_kategori_ekle.html')
-        
-        
+               
         else:
-            messages.success(request, "Lutfen Turkce Kategori Ismi Belirleyin")
+            messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")
             return render(request = request,
                     template_name='spor_kategori_ekle.html')
 

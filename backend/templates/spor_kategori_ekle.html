@@ -55,15 +55,32 @@
               </div>
               
               {% if messages %}
-              {% for message in messages %}
-                <div class="message">
-                  <div class="alert alert-danger" role="alert">
-                    {{ message }}
-                    <a href="#" class="del-msg">&times;</a>
-                  </div>
-                </div>
-              {% endfor %}
+                {% for message in messages %}
+                  {% if message.tags == 'success'%} 
+                    <div class="message">
+                      <div class="alert alert-success" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'error' %}
+                    <div class="message">
+                      <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'warning' %}
+                    <div class="message">
+                      <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>      
+                  {% endif %}
+                {% endfor %}
               {% endif %}
+              
             </form>
 
           </div>
@@ -109,26 +126,13 @@
     input[type=submit]:hover {
       background-color: #45a049;
     }
-    .panel {
-
-      
+    .panel {      
       background-color: aliceblue;
       margin: 80px auto;
-      
-      
+          
     }
 
   </style>
-
-  <script>
-        $(document).ready(function() {
-        // messages timeout for 10 sec 
-        setTimeout(function() {
-            $('.message').fadeOut('slow');
-        }, 7000
-        ); // <-- time in milliseconds, 1000 =  1 sec
-    });
-  </script>
 
 {% endblock %}
 

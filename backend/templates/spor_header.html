@@ -26,19 +26,6 @@
       </ul>
     </div>
   </nav>
-  {% if messages %}
-  {% for message in messages %}
-      {% if message.tags == 'success'%}
-          <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-      {% elif message.tags == 'info' %}
-          <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-      {% elif message.tags == 'warning' %}
-          <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-      {% elif message.tags == 'error' %}
-          <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-      {% endif %}
-  {% endfor %}
- {% endif %}
   <div class="sidebar">
       <a href="/yonetim/spor_main/spor_kategori/"><i class="fa fa-fw fa-wrench"></i> Kategori Ekle</a>
       <a href="/yonetim/spor_main/spor_altkategori/"><i class="fa fa-fw fa-wrench"></i> Alt Kategori Ekle</a>
