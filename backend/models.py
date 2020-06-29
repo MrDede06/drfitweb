@@ -30,27 +30,27 @@ class Users(models.Model):
         return '%s %s' % (self.id, self.name)
 
 class Category(models.Model):
+    name_tr = models.TextField(max_length=1000,blank=True , null=True)
+    name_en = models.TextField(max_length=1000,blank=True , null=True)
+    explain_tr = models.TextField(max_length=1000,blank=True , null=True)
+    explain_en = models.TextField(max_length=1000,blank=True , null=True)    
+    image = models.TextField(max_length=1000,blank=True , null=True)
+    def __str__(self):
+        return u'Category name : %s ' % (self.name_tr)
+
+
+class SubCategory(models.Model):
     name_en = models.TextField(max_length=1000,blank=True , null=True)
     name_tr = models.TextField(max_length=1000,blank=True , null=True)
     explain_en = models.TextField(max_length=1000,blank=True , null=True)
     explain_tr = models.TextField(max_length=1000,blank=True , null=True)
-    image = models.TextField(max_length=1000,blank=True , null=True)
-    def __unicode__(self):
-        return u'Category name : %s ' % (self.id)
-
-
-class SubCategory(models.Model):
     Ctgry = models.ForeignKey(Category,blank=True, on_delete=models.CASCADE  , null=True)
     image = models.TextField(max_length=1000,blank=True , null=True)
     totaltime = models.TextField(max_length=1000,blank=True , null=True)
     place = models.TextField(max_length=1000,blank=True , null=True)
     isitpremium = models.BooleanField('premium')
-    name_en = models.TextField(max_length=1000,blank=True , null=True)
-    name_tr = models.TextField(max_length=1000,blank=True , null=True)
-    explain_en = models.TextField(max_length=1000,blank=True , null=True)
-    explain_tr = models.TextField(max_length=1000,blank=True , null=True)
-    def __unicode__(self):
-        return u'%s' % (self.id)
+    def __str__(self):
+        return u'Category name : %s ' % (self.name_tr)
 
 
 class Program(models.Model):

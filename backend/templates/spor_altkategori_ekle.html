@@ -1,7 +1,6 @@
 
 {% extends 'spor_header.html' %}
 {% load static %}
-
 {% block content %}
   
   <h1>Alt Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1> 
@@ -12,34 +11,28 @@
         <div class="panel-body">
           <div class="form-horizontal">
   
-            <form action="/addcategoryfy" id="kateform" method="post" enctype="multipart/form-data">
-
+            <form action="/yonetim/spor_main/spor_altkategori/" id="kateform" method="post" enctype="multipart/form-data">
+              
+              {% csrf_token %}
               <div class="form-group">
-                  <label class="col-lg-4 control-label">Kategori seçin</label>
-                  <div class="col-lg-8">
-                    <div class="input-group input-append dropdown combobox" data-initialize="combobox" id="myCombobox">
-                      <input type="text" class="form-control">
-                        <div class="input-group-btn">
-                          <div class="button-position">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                          </div>
-                          <ul class="dropdown-menu dropdown-menu-right">
-                          {% for i in getkategoris %}    
-                          <li data-value="{{i.id}}"><a href="#">{{i.name_tr}}</a></li>
-                          {% endfor %}      
-                          </ul>
-                        </div>
-                      </div>
-                    <div class="line line-dashed m-t-large"></div>
-                  </div>
+                <label class="col-lg-4 control-label">Kategori seçin</label>  
+                  <div class="col-lg-8">           
+                    <div class="input-field col s12">
+                      <select name="dropdown1">
+                        <option value="" disabled selected >Kategori seçin</option>
+                          {% for i in categories %}
+                          <option value="{{ i.name_tr }}">{{ i.name_tr }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
               </div>
-
+              
               <div class="form-group">
                 <label class="col-lg-4 control-label">Bu alt kategori premium kullancılar için mi?:</label>
                 <div class="col-lg-7">
 
                   <input type="checkbox" name="premium" value="true"><br>
-
+                  </div>
                 </div>
               </div>   
 
@@ -50,66 +43,87 @@
                 </div>
               </div>
 
+
               <div class="form-group">
-                <label class="col-lg-4 control-label">Çalışma alanı</label>
-                <div class="col-lg-8">
-                  <div class="input-group input-append dropdown combobox" data-initialize="combobox" id="alanbox">
-                    <input type="text" class="form-control">
-                    <div class="input-group-btn">
-                      <div class="button-position2">  
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                      </div>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li data-value="1"><a href="#">Vücut ağırlığı</a></li>
-                        <li data-value="2"><a href="#">Serbest Ağırlık</a></li>
-                      </ul>
+                <label class="col-lg-4 control-label">Çalışma alanı</label>  
+                  <div class="col-lg-8">           
+                    <div class="input-field col s12">
+                      <select name="dropdown2">
+                        <option value="" disabled selected>Çalışma alanı seçin </option>
+                          <option value="1">Vücut ağırlığı</option>
+                          <option value="2">Serbest Ağırlık</option>
+                      </select>
                     </div>
-                  </div>
-                  <div class="line line-dashed m-t-large"></div>
-                </div>
               </div>
 
 
  
               <div class="form-group">
-                <label class="col-lg-4 control-label">Türkçe Alt Kategori ismi belirleyin:</label>
+                <label class="col-lg-4 control-label">Türkçe alt Kategori ismi belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="trkateisim" id="trkateisim" placeholder="Alt Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="traltkateisim" id="traltkateisim" placeholder="Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-4 control-label">Türkçe Alt Kategori açıklamsı belirleyin:</label>
+                <label class="col-lg-4 control-label">Türkçe alt Kategori açıklamsı belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="trkateaciklama" id="trkateaciklama" placeholder="Alt Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="traltkateaciklama" id="traltkateaciklama" placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-4 control-label">İngilizce Alt Kategori ismi belirleyin:</label>
+                <label class="col-lg-4 control-label">İngilizce alt Kategori ismi belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="enkateisim" id="enkateisim" placeholder="İngilizce Alt Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="enaltkateisim" id="enaltkateisim" placeholder="İngilizce Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-4 control-label">İngilizce Alt Kategori açıklaması belirleyin:</label>
+                <label class="col-lg-4 control-label">İngilizce alt Kategori açıklaması belirleyin:</label>
                 <div class="col-lg-8">
-                  <input type="text" name="enkateaciklama" id="enkateaciklama" placeholder="İngilizce Alt Kategori açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                  <input type="text" name="enaltkateaciklama" id="enaltkateaciklama" placeholder="İngilizce Kategori açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-4 control-label">Alt Kategori Resmini belirleyin:</label>
-                <input name="file" id="file"  type="file"  required />      
+                <label class="col-lg-4 control-label"> Alt Kategori Resmini belirleyin:</label>
+                <input name="file" id="file"  type="file" required />
               </div>
 
               <div class="form-group">
-                <label class="col-lg-4 control-label">Alt Kategoriyi Onaylayın:</label>
-                <div class="col-lg-7">
-                  <div id="kategoriekle" class="btn btn-success" style="margin-top:10px;" >İşlemi tamamla</div>
+                <label class="col-lg-4 control-label">Kategoriyi Onaylayın:</label>
+                <div class="col-lg-2">
+                  <input type="submit" value="ONAYLA"> 
                 </div>
               </div>
+              
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success'%} 
+                    <div class="message">
+                      <div class="alert alert-success" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'error' %}
+                    <div class="message">
+                      <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'warning' %}
+                    <div class="message">
+                      <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>      
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
 
             </form>
 

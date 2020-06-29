@@ -20,9 +20,8 @@ string= "DefaultEndpointsProtocol=https;AccountName=drfitstorage;AccountKey=ueV0
 @staff_member_required
 @csrf_exempt
 def kategori_ekle(request):
-    data = {}
-
     if request.method == 'GET':
+        getkategoris = Category.objects.all()
         return render(request = request,
                   template_name='spor_kategori_ekle.html')
     
@@ -47,9 +46,8 @@ def kategori_ekle(request):
             oldname = os.path.join(path, filename)
             os.rename(oldname, newname)
             
-            blob = BlobClient.from_connection_string(container_name="drfitcontainer", conn_str=string, blob_name=newBasename)
-            
-            
+            blob = BlobClient.from_connection_string(container_name="spor-kategori", conn_str=string, blob_name=newBasename)
+                       
             with open(newname, "rb") as data:
                     blob.upload_blob(data)
             try: 
@@ -77,18 +75,80 @@ def kategori_ekle(request):
 
 @staff_member_required
 def altkategori_ekle(request):
-    return render(request = request,
-                  template_name='spor_altkategori_ekle.html')
+    if request.method == 'GET':
+        return render(request = request,
+                  template_name='spor_altkategori_ekle.html',
+                  context = {"categories":Category.objects.all})
 
+    if request.method == 'POST':
+        try:
+            preboool = False
+            totaltime = request.POST.get('totaltime')
 
+            trkateisim = request.POST.get('traltkateisim')
+            trkateaciklama = request.POST.get('traltkateaciklama')
+
+            enkateisim = request.POST.get('enaltkateisim')
+            enkateaciklama = request.POST.get('enaltkateaciklama')
+
+            cname = request.POST.get('dropdown1')
+            category = Category.objects.get(name_tr = cname)
+            categoryid = category.id
+            premium = request.POST.get('premium')        
+            if premium:
+                preboool = True    
+            alanbox = request.POST.get('dropdown2')
+            filez = request.FILES['file']
+            
+            if trkateisim:
+                fs = FileSystemStorage()
+                filename = fs.save(filez.name, filez)
+                    
+                num = random.randrange(1, 10**3)
+                newBasename = "sporAltKategory" + trkateisim + str(num) + ".jpg"
+                newname = os.path.join(path, newBasename)        
+                oldname = os.path.join(path, filename)
+                os.rename(oldname, newname)
+            
+                blob = BlobClient.from_connection_string(container_name="spor-altkategori", conn_str=string, blob_name=newBasename)
+                category = Category.objects.get(id=categoryid)       
+                with open(newname, "rb") as data:
+                    blob.upload_blob(data)  
+                try: 
+                    getsubcategory = SubCategory.objects.get(name_tr=trkateisim)
+                    messages.error(request, "Bu Alt Kategori zaten mevcut, baska alt kategori ekleyin")      
+                except SubCategory.DoesNotExist:
+                    savesubcate = SubCategory(Ctgry=category,
+                        totaltime=totaltime,
+                        place=alanbox,
+                        name_en=enkateisim,
+                        name_tr=trkateisim,
+                        explain_en=enkateaciklama,
+                        explain_tr = trkateaciklama,
+                        image=newBasename,
+                        isitpremium=preboool)
+                    savesubcate.save()
+                    messages.success(request, "Alt Kategori Basari ile Kaydedildi")
+                    os.remove(newname)
+        
+        except Category.DoesNotExist:
+            messages.error(request, "Kategori seciniz")
+               
+        return render(request = request,
+                template_name='spor_altkategori_ekle.html',
+                  context = {"categories":Category.objects.all})
+               
+    else:
+        messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")
+        return render(request = request,
+                    template_name='spor_altkategori_ekle.html',
+                  context = {"categories":Category.objects.all})
 
 
 
 @staff_member_required
 def form_test(request):
-    messages.success(request, "FAILSSS")
-    messages.success(request, "FAILSSS")
-    messages.success(request, "FAILSSS")
-    messages.success(request, "FAILSSS")
+    
     return render(request = request,
-                  template_name='form_test.html')
+                  template_name='form_test.html',
+                  context = {"categories":Category.objects.all})
