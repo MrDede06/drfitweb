@@ -53,14 +53,18 @@ class SubCategory(models.Model):
         return u'Category name : %s ' % (self.name_tr)
 
 
-class Program(models.Model):
-    name_en = models.TextField(max_length=1000,blank=True , null=True)
+class Programlist(models.Model):
     name_tr = models.TextField(max_length=1000,blank=True , null=True)
-    explain_en = models.TextField(max_length=1000,blank=True , null=True)
-    explain_tr = models.TextField(max_length=1000,blank=True , null=True)
-    video = models.FileField(blank=True, null=True)
-    def __unicode__(self):
-        return u"name : %s "% (self.name_en)
+    psc = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=False , null=False)
+    setcount = models.IntegerField(blank=True , null=True)
+    replycount = models.IntegerField(blank=True , null=True)
+    duration = models.IntegerField(blank=True , null=True)
+    orderlist = models.IntegerField(blank=True , null=True)
+    isitduration = models.BooleanField('isitduration', default=True ) #eğer set değlide saniye şeklindeyse...
+    isitrest = models.BooleanField('isitrest')    
+    video = models.TextField(max_length=1000,blank=True , null=True)
+    def __str__(self):
+        return u'Program Liste : %s %s ' % (self.psc.name_tr) % (self.name_tr)
 
 class Form_test(models.Model):
     name_test = models.TextField(max_length=1000,blank=True , null=True)

@@ -16,38 +16,28 @@ path = r"C:\Users\KG672AV\Desktop\DrFit\repos\myenv\drfitweb"
 string= "DefaultEndpointsProtocol=https;AccountName=drfitstorage;AccountKey=ueV0MNXhWxVWv9Uh+pJMCuB1gPrac+piwdshUeDcqZ06bf3M8/DOaIAHFwyLc+LXZQVAagkt5CI4lDJi0DBgXQ==;EndpointSuffix=core.windows.net"
 #TODO END
 
-
 @staff_member_required
 @csrf_exempt
 def kategori_ekle(request):
     if request.method == 'GET':
         getkategoris = Category.objects.all()
         return render(request = request,
-                  template_name='spor_kategori_ekle.html')
-    
-    if request.method == 'POST':
-        
+                  template_name='spor_kategori_ekle.html')   
+    if request.method == 'POST':        
         trkateisim = request.POST.get('trkateisim')
         trkateaciklama = request.POST.get('trkateaciklama')
-
         enkateisim = request.POST.get('enkateisim')
-        enkateaciklama = request.POST.get('enkateaciklama')
-
-        
+        enkateaciklama = request.POST.get('enkateaciklama')        
         filez = request.FILES['file']
-
         if trkateisim:
             fs = FileSystemStorage()
-            filename = fs.save(filez.name, filez)
-                    
+            filename = fs.save(filez.name, filez)                    
             num = random.randrange(1, 10**3)
             newBasename = "sporKategory" + trkateisim + str(num) + ".jpg"
             newname = os.path.join(path, newBasename)        
             oldname = os.path.join(path, filename)
-            os.rename(oldname, newname)
-            
-            blob = BlobClient.from_connection_string(container_name="spor-kategori", conn_str=string, blob_name=newBasename)
-                       
+            os.rename(oldname, newname)            
+            blob = BlobClient.from_connection_string(container_name="spor-kategori", conn_str=string, blob_name=newBasename)                      
             with open(newname, "rb") as data:
                     blob.upload_blob(data)
             try: 
@@ -63,34 +53,29 @@ def kategori_ekle(request):
                 image = newBasename)
                 savecate.save()
                 messages.success(request, "Kategori Basari ile Kaydedildi")
-
             os.remove(newname)     
             return render(request = request,
-                    template_name='spor_kategori_ekle.html')
-               
+                    template_name='spor_kategori_ekle.html')              
         else:
             messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")
             return render(request = request,
                     template_name='spor_kategori_ekle.html')
 
+@csrf_exempt
 @staff_member_required
 def altkategori_ekle(request):
     if request.method == 'GET':
         return render(request = request,
                   template_name='spor_altkategori_ekle.html',
                   context = {"categories":Category.objects.all})
-
     if request.method == 'POST':
         try:
             preboool = False
             totaltime = request.POST.get('totaltime')
-
             trkateisim = request.POST.get('traltkateisim')
             trkateaciklama = request.POST.get('traltkateaciklama')
-
             enkateisim = request.POST.get('enaltkateisim')
             enkateaciklama = request.POST.get('enaltkateaciklama')
-
             cname = request.POST.get('dropdown1')
             category = Category.objects.get(name_tr = cname)
             categoryid = category.id
@@ -98,18 +83,15 @@ def altkategori_ekle(request):
             if premium:
                 preboool = True    
             alanbox = request.POST.get('dropdown2')
-            filez = request.FILES['file']
-            
+            filez = request.FILES['file']            
             if trkateisim:
                 fs = FileSystemStorage()
-                filename = fs.save(filez.name, filez)
-                    
+                filename = fs.save(filez.name, filez)                  
                 num = random.randrange(1, 10**3)
                 newBasename = "sporAltKategory" + trkateisim + str(num) + ".jpg"
                 newname = os.path.join(path, newBasename)        
                 oldname = os.path.join(path, filename)
-                os.rename(oldname, newname)
-            
+                os.rename(oldname, newname)           
                 blob = BlobClient.from_connection_string(container_name="spor-altkategori", conn_str=string, blob_name=newBasename)
                 category = Category.objects.get(id=categoryid)       
                 with open(newname, "rb") as data:
@@ -129,26 +111,28 @@ def altkategori_ekle(request):
                         isitpremium=preboool)
                     savesubcate.save()
                     messages.success(request, "Alt Kategori Basari ile Kaydedildi")
-                    os.remove(newname)
-        
+                    os.remove(newname)        
         except Category.DoesNotExist:
-            messages.error(request, "Kategori seciniz")
-               
+            messages.error(request, "Kategori seciniz")              
         return render(request = request,
                 template_name='spor_altkategori_ekle.html',
-                  context = {"categories":Category.objects.all})
-               
+                context = {"categories":Category.objects.all})              
     else:
         messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")
         return render(request = request,
-                    template_name='spor_altkategori_ekle.html',
-                  context = {"categories":Category.objects.all})
-
-
+                template_name='spor_altkategori_ekle.html',
+                context = {"categories":Category.objects.all})
 
 @staff_member_required
-def form_test(request):
-    
+def form_test(request):   
     return render(request = request,
                   template_name='form_test.html',
                   context = {"categories":Category.objects.all})
+
+
+@staff_member_required
+def programlist(request):   
+    return render(request = request,
+                  template_name='spor_programlist.html',
+                  context = {"categories":Category.objects.all, "subcategories":SubCategory.objects.all})
+                  

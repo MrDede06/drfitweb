@@ -1,0 +1,184 @@
+
+{% extends 'spor_header.html' %}
+{% load static %}
+{% block content %}
+  
+  <h1>Alt Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1> 
+  
+  <div class="row">
+    <div class="col-lg-7 col-md-offset-2" >
+      <section class="panel" >
+        <div class="panel-body">
+          <div class="form-horizontal">
+  
+            <form action="/yonetim/spor_main/spor_altkategori/" id="kateform" method="post" enctype="multipart/form-data">
+              
+              {% csrf_token %}
+            
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Kategori seçin</label>  
+                  <div class="col-lg-8">           
+                    <div class="input-field col s12">
+                      <select name="dropdown1">
+                        <option value="" disabled selected >Kategori seçin</option>
+                          {% for i in categories %}
+                          <option value="{{ i.name_tr }}">{{ i.name_tr }}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+              </div>
+              <label class="col-lg-4 control-label">Alt Kategori seçin</label>  
+              <div class="col-lg-8">           
+                <div class="input-field col s12">
+                  <select name="dropdown1">
+                    <option value="" disabled selected >Alt Kategori seçin</option>
+                      {% for i in categories %}
+                      <option value="{{ i.name_tr }}">{{ i.name_tr }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+                
+              <div class="form-group">
+                    <label class="col-lg-4 control-label"> Video Belirleyin:</label>
+                    <input name="file" id="file"  type="file" required />
+                </div>
+            
+                
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Set ve Tekrar Sayısı</label>
+    
+                    <div class="col-lg-2">
+                      <input type="number" name="setsayisix" id="setsayisix" placeholder="Set sayısı" class="bg-focus form-control" data-required="true" >
+                     <div class="line line-dashed m-t-large"></div>
+                    </div>
+    
+                    <div class="col-lg-2">
+                      <input type="number" name="tekrarsayisi" id="tekrarsayisix" placeholder="Tekrar/Saniye" class="bg-focus form-control" data-required="true" >
+                     <div class="line line-dashed m-t-large"></div>
+                    </div>
+    
+                    <div class="col-lg-1">
+                      <p>Saniye</p>
+                      <div class="line line-dashed m-t-large"></div>
+                    </div>
+    
+                    <div class="col-lg-1">
+    
+                      <input type="checkbox" name="isitduration" id="isitduration" value="true"><br>
+                      <div class="line line-dashed m-t-large"></div>
+                    </div>
+    
+                  </div>
+    
+   
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Dinlenme ekleyin</label>
+    
+                    <div class="col-lg-4">
+                    <input type="number" name="resttime" id="resttime" placeholder="Dinlenme Süresi" class="bg-focus form-control" data-required="true" >
+                    <div class="line line-dashed m-t-large">
+
+                    </div>
+                 
+                    <div class="form-group">
+                        <label class="col-lg-6 control-label">Kategoriyi Onaylayın:</label>
+                        <div class="col-lg-4">
+                          <input type="submit" value="ONAYLA"> 
+                        </div>
+                    </div>
+                </div>
+               
+
+ 
+              
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success'%} 
+                    <div class="message">
+                      <div class="alert alert-success" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'error' %}
+                    <div class="message">
+                      <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'warning' %}
+                    <div class="message">
+                      <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>      
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+            </form>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <style>
+
+    h1 {      
+      position: absolute;
+      top: 70px;
+      padding-left: 250px;
+      font-size: 30px;
+     }
+    
+     input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 10px 0;
+      display: inline-block;
+      border: 1px solid rgb(110, 20, 20);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    .panel {
+      background-color: aliceblue;
+      margin: 80px auto;
+      
+    }
+
+    .button-position{
+      margin-top: 9px;
+    }
+
+    .button-position2{
+      margin-top: 9px;
+    }
+
+
+
+  </style>
+{% endblock %}
