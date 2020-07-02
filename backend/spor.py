@@ -98,7 +98,8 @@ def altkategori_ekle(request):
                     blob.upload_blob(data)  
                 try: 
                     getsubcategory = SubCategory.objects.get(name_tr=trkateisim)
-                    messages.error(request, "Bu Alt Kategori zaten mevcut, baska alt kategori ekleyin")      
+                    messages.error(request, "Bu Alt Kategori zaten mevcut, baska alt kategori ekleyin")    
+                    os.remove(newname)  
                 except SubCategory.DoesNotExist:
                     savesubcate = SubCategory(Ctgry=category,
                         totaltime=totaltime,
@@ -111,17 +112,17 @@ def altkategori_ekle(request):
                         isitpremium=preboool)
                     savesubcate.save()
                     messages.success(request, "Alt Kategori Basari ile Kaydedildi")
-                    os.remove(newname)        
+                    os.remove(newname)
+            else:
+                messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")        
         except Category.DoesNotExist:
             messages.error(request, "Kategori seciniz")              
+        
         return render(request = request,
                 template_name='spor_altkategori_ekle.html',
                 context = {"categories":Category.objects.all})              
-    else:
-        messages.error(request, "Lutfen Turkce Kategori Ismi Belirleyin")
-        return render(request = request,
-                template_name='spor_altkategori_ekle.html',
-                context = {"categories":Category.objects.all})
+            
+
 
 @staff_member_required
 def form_test(request):   
@@ -131,8 +132,64 @@ def form_test(request):
 
 
 @staff_member_required
-def programlist(request):   
-    return render(request = request,
+def programlist(request):
+    if request.method == 'GET':   
+        return render(request = request,
                   template_name='spor_programlist.html',
                   context = {"categories":Category.objects.all, "subcategories":SubCategory.objects.all})
-                  
+
+    if request.method == 'POST':
+        
+        cnameCategory = request.POST.get('dropdown1')
+        cnameScategory = request.POST.get('dropdown2')
+        trkateisim = request.POST.get('traltkateisim')
+        if (cnameCategory != None) or (cnameScategory != None) or trkateisim:
+
+            category = Category.objects.get(name_tr = cnameCategory)
+            categoryid = category.id
+       
+            subcategory= SubCategory.objects.get(name_tr = cnameScategory)
+            subcategoryid = subcategory.id
+            getsubcate = SubCategory.objects.get(id=int(subcategoryid))
+            tekrarsaytisi = request.POST.get('tekrarsayisi')
+            setsayisi = request.POST.get('setsayisix')
+            resttime = request.POST.get('resttime')
+            isitduration = request.POST.get('isitduration')
+            filez = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(filez.name, filez)                    
+            num = random.randrange(1, 10**3)
+            newBasename = "sporKatProgram" + trkateisim + str(num) + ".mp4"
+            newname = os.path.join(path, newBasename)        
+            oldname = os.path.join(path, filename)
+            os.rename(oldname, newname)            
+            blob = BlobClient.from_connection_string(container_name="spor-katprogram", conn_str=string, blob_name=newBasename)
+            if isitduration:
+                preboool = True
+            else:
+                preboool = False
+            with open(newname, "rb") as data:
+                blob.upload_blob(data)
+            try:
+                programlist = Programlist(name_tr=trkateisim,
+                    psc=getsubcate,
+                    setcount=setsayisi,
+                    replycount=tekrarsaytisi,
+                    isitduration=preboool,
+                    resttime=resttime,
+                    video=newBasename
+                    )
+                programlist.save()
+                os.remove(newname)  
+                messages.success(request, "Program Basari ile Kaydedildi")
+            except OSError:
+                messages.error(request, "Video kaydedilemedi tekrar deneyin")
+
+        else:
+            messages.error(request, "Program Ismi, Kategori ya da Altkategori Seçmediniz. Lütfen kategori, alt kategori ve program ismi kısımlarını boş bırakmayınız.")  
+
+        return render(request = request,
+                  template_name='spor_programlist.html',
+                  context = {"categories":Category.objects.all, "subcategories":SubCategory.objects.all})
+
+        

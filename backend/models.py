@@ -36,7 +36,7 @@ class Category(models.Model):
     explain_en = models.TextField(max_length=1000,blank=True , null=True)    
     image = models.TextField(max_length=1000,blank=True , null=True)
     def __str__(self):
-        return u'Category name : %s ' % (self.name_tr)
+        return u'kategori Ismi : %s ' % (self.name_tr)
 
 
 class SubCategory(models.Model):
@@ -50,7 +50,7 @@ class SubCategory(models.Model):
     place = models.TextField(max_length=1000,blank=True , null=True)
     isitpremium = models.BooleanField('premium')
     def __str__(self):
-        return u'Category name : %s ' % (self.name_tr)
+        return u'Alt Kategori Ismi : %s ' % (self.name_tr)
 
 
 class Programlist(models.Model):
@@ -58,13 +58,11 @@ class Programlist(models.Model):
     psc = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=False , null=False)
     setcount = models.IntegerField(blank=True , null=True)
     replycount = models.IntegerField(blank=True , null=True)
-    duration = models.IntegerField(blank=True , null=True)
-    orderlist = models.IntegerField(blank=True , null=True)
+    resttime = models.IntegerField(blank=True , null=True)
     isitduration = models.BooleanField('isitduration', default=True ) #eğer set değlide saniye şeklindeyse...
-    isitrest = models.BooleanField('isitrest')    
     video = models.TextField(max_length=1000,blank=True , null=True)
     def __str__(self):
-        return u'Program Liste : %s %s ' % (self.psc.name_tr) % (self.name_tr)
+        return u'Program Liste : %s ' % (self.name_tr) 
 
 class Form_test(models.Model):
     name_test = models.TextField(max_length=1000,blank=True , null=True)
