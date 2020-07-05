@@ -55,9 +55,9 @@ class SubCategory(models.Model):
 class Programlist(models.Model):
     name_tr = models.TextField(max_length=1000,blank=True , null=True)
     psc = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=False , null=False)
-    setcount = models.IntegerField(blank=True , null=True)
-    replycount = models.IntegerField(blank=True , null=True)
-    resttime = models.IntegerField(blank=True , null=True)
+    setcount = models.IntegerField(blank=True , null=True, default=0)
+    replycount = models.IntegerField(blank=True , null=True, default=0)
+    resttime = models.IntegerField(blank=True , null=True, default=0)
     isitduration = models.BooleanField('isitduration', default=True ) #eğer set değlide saniye şeklindeyse...
     video = models.TextField(max_length=1000,blank=True , null=True)
     def __str__(self):

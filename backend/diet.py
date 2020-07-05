@@ -138,35 +138,36 @@ def programlist(request):
         cnameKalori = request.POST.get('dropdown2')
         trkateisim = request.POST.get('traltkateisim')
         if (cnameCategory != None) or (cnameScategory != None) or (cnameKalori != None)  or trkateisim:
-
-            category = DietCategory.objects.get(name_tr = cnameCategory)
-            categoryid = category.id       
-            subcategory= DietSubCategory.objects.get(name_tr = cnameScategory)
-            subcategoryid = subcategory.id
-            getsubcate = DietSubCategory.objects.get(id=int(subcategoryid))
-            koncesi = request.POST.get('araog1')
-            kahvalti = request.POST.get('kahvalti')
-            araogun1 = request.POST.get('araog2')
-            ogleyemegi = request.POST.get('ogley')
-            araogun2 = request.POST.get('araog3')
-            aksamyemegi = request.POST.get('aksamy')
-            supper = request.POST.get('araog4')
             try:
-                programlist = Programlist(name_tr=trkateisim,
-                    psc=getsubcate,
-                    kalori=cnameKalori,
-                    ara1=koncesi,
-                    bfast=kahvalti,
-                    ara2=araogun1,
-                    lunch=ogleyemegi,
-                    ara3=araogun2,
-                    dinner=aksamyemegi,
-                    ara4=supper
-                    )
+                DietProgramlist.objects.get(name_tr = trkateisim)
+            except DietProgramlist.DoesNotExist:
+                category = DietCategory.objects.get(name_tr = cnameCategory)
+                categoryid = category.id       
+                subcategory= DietSubCategory.objects.get(name_tr = cnameScategory)
+                subcategoryid = subcategory.id
+                getsubcate = DietSubCategory.objects.get(id=int(subcategoryid))
+                koncesi = request.POST.get('araog1')
+                kahvalti = request.POST.get('kahvalti')
+                araogun1 = request.POST.get('araog2')
+                ogleyemegi = request.POST.get('ogley')
+                araogun2 = request.POST.get('araog3')
+                aksamyemegi = request.POST.get('aksamy')
+                supper = request.POST.get('araog4')
+                programlist = DietProgramlist(name_tr=trkateisim,
+                        psc=getsubcate,
+                        kalori=cnameKalori,
+                        ara1=koncesi,
+                        bfast=kahvalti,
+                        ara2=araogun1,
+                        lunch=ogleyemegi,
+                        ara3=araogun2,
+                        dinner=aksamyemegi,
+                        ara4=supper
+                        )
                 programlist.save()
                 messages.success(request, "Program Basari ile Kaydedildi")
-            except OSError:
-                messages.error(request, "Video kaydedilemedi tekrar deneyin")
+            else:
+                messages.error(request, "Bu Program zaten var lütfen yeni isim giriniz")
 
         else:
             messages.error(request, "Türkçe program ismi belirleyin, Kategori seçin, Alt Kategori seçin, Kalori aralığı kısımlarını boş bırakmayınız.")  

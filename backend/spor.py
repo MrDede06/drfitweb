@@ -143,7 +143,8 @@ def programlist(request):
         cnameCategory = request.POST.get('dropdown1')
         cnameScategory = request.POST.get('dropdown2')
         trkateisim = request.POST.get('traltkateisim')
-        if (cnameCategory != None) or (cnameScategory != None) or trkateisim:
+
+        if (cnameCategory != None) or (cnameScategory != None) or (trkateisim!= None):
 
             category = Category.objects.get(name_tr = cnameCategory)
             categoryid = category.id
@@ -154,6 +155,7 @@ def programlist(request):
             tekrarsaytisi = request.POST.get('tekrarsayisi')
             setsayisi = request.POST.get('setsayisix')
             resttime = request.POST.get('resttime')
+
             isitduration = request.POST.get('isitduration')
             filez = request.FILES['file']
             fs = FileSystemStorage()
@@ -168,25 +170,33 @@ def programlist(request):
                 preboool = True
             else:
                 preboool = False
-            with open(newname, "rb") as data:
-                blob.upload_blob(data)
             try:
-                programlist = Programlist(name_tr=trkateisim,
-                    psc=getsubcate,
-                    setcount=setsayisi,
-                    replycount=tekrarsaytisi,
-                    isitduration=preboool,
-                    resttime=resttime,
-                    video=newBasename
-                    )
-                programlist.save()
+                Programlist.objects.get(name_tr = trkateisim)
+
+            except Programlist.DoesNotExist:
+                with open(newname, "rb") as data:
+                    blob.upload_blob(data)
+                try:
+                    programlist = Programlist(name_tr=trkateisim,
+                        psc=getsubcate,
+                        setcount=setsayisi,
+                        replycount=tekrarsaytisi,
+                        isitduration=preboool,
+                        resttime=resttime,
+                        video=newBasename
+                        )
+                    programlist.save()
+                    os.remove(newname)  
+                    messages.success(request, "Program Basari ile Kaydedildi")
+                except OSError:
+                    messages.error(request, "Video kaydedilemedi tekrar deneyin")
+                    os.remove(newname)  
+            else:
+                messages.error(request, "Bu Program zaten var lütfen yeni isim giriniz")
                 os.remove(newname)  
-                messages.success(request, "Program Basari ile Kaydedildi")
-            except OSError:
-                messages.error(request, "Video kaydedilemedi tekrar deneyin")
 
         else:
-            messages.error(request, "Program Ismi, Kategori ya da Altkategori Seçmediniz. Lütfen kategori, alt kategori ve program ismi kısımlarını boş bırakmayınız.")  
+            messages.error(request, "Türkçe program ismi, Kategori ve Altkategori kısımlarının hepsini doldurun")  
 
         return render(request = request,
                   template_name='spor_programlist.html',
