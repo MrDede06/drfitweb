@@ -1,5 +1,5 @@
 
-{% extends 'spor_header.html' %}
+{% extends 'diet_header.html' %}
 {% load static %}
 {% block content %}
   
@@ -11,7 +11,7 @@
         <div class="panel-body">
           <div class="form-horizontal">
   
-            <form action="/yonetim/spor_main/spor_programlist/" id="kateform" method="post" enctype="multipart/form-data">
+            <form action="/yonetim/diet_main/diet_programlist/" id="kateform" method="post" enctype="multipart/form-data">
               
               {% csrf_token %}
               <div class="form-group">
@@ -24,7 +24,7 @@
                 <label class="col-lg-4 control-label">Kategori seçin</label>  
                   <div class="col-lg-8">           
                     <div class="input-field col s12">
-                      <select name="dropdown1">
+                      <select name="dropdown">
                         <option value="" disabled selected >Kategori seçin</option>
                           {% for i in categories %}
                           <option value="{{ i.name_tr }}">{{ i.name_tr }}</option>
@@ -38,7 +38,7 @@
                     <label class="col-lg-4 control-label">Alt Kategori seçin</label>  
                       <div class="col-lg-8">           
                         <div class="input-field col s12">
-                          <select name="dropdown2">
+                          <select name="dropdown1">
                             <option value="" disabled selected >Alt Kategori seçin</option>
                               {% for i in subcategories %}
                               <option value="{{ i.name_tr }}">{{ i.name_tr }}</option>
@@ -49,43 +49,64 @@
                 </div>
 
                 <div class="form-group">
-                    
-                  <label class="col-lg-4 control-label">Set ve Tekrar Sayısı</label>
-    
-                  <div class="col-lg-2">
-                    <input type="number" name="setsayisix" id="setsayisix" placeholder="Set sayısı" class="bg-focus form-control" data-required="true" >
-                     <div class="line line-dashed m-t-large"></div>
-                  </div>
-    
-                  <div class="col-lg-2">
-                    <input type="number" name="tekrarsayisi" id="tekrarsayisix" placeholder="Tekrar/Saniye" class="bg-focus form-control" data-required="true" >
-                      <div class="line line-dashed m-t-large"></div>
-                  </div>
-    
-                  <div class="col-lg-1">
-                    <p>Saniye</p>
-                      <div class="line line-dashed m-t-large"></div>
-                  </div>
-    
-                  <div class="col-lg-1">
-                    <input type="checkbox" name="isitduration" id="isitduration" value="true"><br>
-                      <div class="line line-dashed m-t-large"></div>
-                  </div>
+                  <label class="col-lg-4 control-label">Kalori aralığı</label>  
+                    <div class="col-lg-8">           
+                      <div class="input-field col s12">
+                        <select name="dropdown2">
+                          <option value="" disabled selected>Kalori aralığını girin </option>
+                            <option value="1">1000-1500</option>
+                            <option value="2">1500-2000</option>
+                            <option value="3">2500-3000</option>
+                            <option value="4">3000-3500</option>
+                            <option value="5">3500 ve fazlasi</option>
+                        </select>
+                      </div>
                 </div>
-    
+              
                 <div class="form-group">
-                  <label class="col-lg-4 control-label">Dinlenme ekleyin</label>    
-                    <div class="col-lg-4">
-                      <input type="number" name="resttime" id="resttime" placeholder="Dinlenme Süresi" class="bg-focus form-control" data-required="true" >
-                        <div class="line line-dashed m-t-large"></div>
-                    </div>
+                  <label class="col-lg-4 control-label">Kahvaltı Öncesi:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="araog1" id="araog1" placeholder="Kahvaltı Öncesi" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="col-lg-4 control-label"> Program Videosu belirleyin:</label>
-                    <input name="file" id="file"  type="file" required />
+                  <label class="col-lg-4 control-label">Kahvaltı:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="kahvalti" id="kahvalti" placeholder="Kahvaltı" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
                 </div>
-
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Ara öğün 1:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="araog2" id="araog2" placeholder="Ara öğün 1" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Öğle yemeği:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="ogley" id="ogley" placeholder="Öğle yemeği" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
+                </div>
+ 
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Ara öğün 2:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="araog3" id="araog3" placeholder="Ara öğün 2" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Akşam yemeği:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="aksamy" id="aksamy" placeholder="Akşam yemeği" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Akşam şımarması:</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="araog4" id="araog4" placeholder="Akşam şımarması" class="bg-focus form-control" data-required="true" data-type="text">
+                  </div>
+                </div>
+                
                 <div class="form-group">
                     <label class="col-lg-4 control-label">Programı Onaylayın:</label>
                     <div class="col-lg-2">

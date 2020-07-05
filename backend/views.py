@@ -19,3 +19,8 @@ def logout_request(request):
 def spor_main(request):
     return render(request = request,
                   template_name='spor_home.html')
+
+@staff_member_required
+def diet_main(request):
+    return render(request = request,
+                  template_name='diet_home.html')

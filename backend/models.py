@@ -47,7 +47,6 @@ class SubCategory(models.Model):
     Ctgry = models.ForeignKey(Category,blank=True, on_delete=models.CASCADE  , null=True)
     image = models.TextField(max_length=1000,blank=True , null=True)
     totaltime = models.TextField(max_length=1000,blank=True , null=True)
-    place = models.TextField(max_length=1000,blank=True , null=True)
     isitpremium = models.BooleanField('premium')
     def __str__(self):
         return u'Alt Kategori Ismi : %s ' % (self.name_tr)
@@ -61,6 +60,44 @@ class Programlist(models.Model):
     resttime = models.IntegerField(blank=True , null=True)
     isitduration = models.BooleanField('isitduration', default=True ) #eğer set değlide saniye şeklindeyse...
     video = models.TextField(max_length=1000,blank=True , null=True)
+    def __str__(self):
+        return u'Program Liste : %s ' % (self.name_tr) 
+
+class DietCategory(models.Model):
+    name_tr = models.TextField(max_length=1000,blank=True , null=True)
+    name_en = models.TextField(max_length=1000,blank=True , null=True)
+    explain_tr = models.TextField(max_length=1000,blank=True , null=True)
+    explain_en = models.TextField(max_length=1000,blank=True , null=True)    
+    image = models.TextField(max_length=1000,blank=True , null=True)
+    def __str__(self):
+        return u'kategori Ismi : %s ' % (self.name_tr)
+
+
+class DietSubCategory(models.Model):
+    name_en = models.TextField(max_length=1000,blank=True , null=True)
+    name_tr = models.TextField(max_length=1000,blank=True , null=True)
+    explain_en = models.TextField(max_length=1000,blank=True , null=True)
+    explain_tr = models.TextField(max_length=1000,blank=True , null=True)
+    Ctgry = models.ForeignKey(DietCategory,blank=True, on_delete=models.CASCADE  , null=True)
+    image = models.TextField(max_length=1000,blank=True , null=True)
+    totaltime = models.TextField(max_length=1000,blank=True , null=True)
+    isitpremium = models.BooleanField('premium')
+    def __str__(self):
+        return u'Alt Kategori Ismi : %s ' % (self.name_tr)
+
+
+class DietProgramlist(models.Model):
+    name_tr = models.TextField(max_length=1000,blank=True , null=True)
+    psc = models.ForeignKey(DietSubCategory, on_delete=models.CASCADE, blank=False , null=False)
+    kalori = models.IntegerField(blank=True , null=True)
+    ara1 = models.TextField(max_length=1000,blank=True , null=True)
+    bfast = models.TextField(max_length=1000,blank=True , null=True)
+    ara2 = models.TextField(max_length=1000,blank=True , null=True)
+    lunch = models.TextField(max_length=1000,blank=True , null=True)
+    ara3= models.TextField(max_length=1000,blank=True , null=True)
+    dinner = models.TextField(max_length=1000,blank=True , null=True)
+    ara4 = models.TextField(max_length=1000,blank=True , null=True)
+
     def __str__(self):
         return u'Program Liste : %s ' % (self.name_tr) 
 

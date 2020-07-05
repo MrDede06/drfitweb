@@ -1,0 +1,138 @@
+
+{% extends 'diet_header.html' %}
+{% load static %}
+
+{% block content %}
+  
+  <h1>Kategori Ekle<i class="fa fa-fw fa-wrench"></i></h1> 
+  
+  <div class="row">
+    <div class="col-lg-7 col-md-offset-2" >
+      <section class="panel" >
+        <div class="panel-body">
+          <div class="form-horizontal">
+  
+            <form action="/yonetim/diet_main/diet_kategori/" id="kateform" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Türkçe Kategori ismi belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="trkateisim" id="trkateisim" placeholder="Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Türkçe Kategori açıklamsı belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="trkateaciklama" id="trkateaciklama" placeholder="Kategori Açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">İngilizce Kategori ismi belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="enkateisim" id="enkateisim" placeholder="İngilizce Kategori ismi" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">İngilizce Kategori açıklaması belirleyin:</label>
+                <div class="col-lg-8">
+                  <input type="text" name="enkateaciklama" id="enkateaciklama" placeholder="İngilizce Kategori açıklaması" class="bg-focus form-control" data-required="true" data-type="text">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Kategori Resmini belirleyin:</label>
+                <input name="file" id="file"  type="file" required />
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label">Kategoriyi Onaylayın:</label>
+                <div class="col-lg-2">
+                  <input type="submit" value="ONAYLA"> 
+                </div>
+              </div>
+              
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success'%} 
+                    <div class="message">
+                      <div class="alert alert-success" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'error' %}
+                    <div class="message">
+                      <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>
+                  {% elif message.tags == 'warning' %}
+                    <div class="message">
+                      <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                        <a href="#" class="del-msg">&times;</a>
+                      </div>
+                    </div>      
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              
+            </form>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <style>
+
+    h1 {      
+      position: absolute;
+      top: 70px;
+      padding-left: 250px;
+      font-size: 30px;
+     }
+    
+     input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 10px 0;
+      display: inline-block;
+      border: 1px solid rgb(110, 20, 20);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    .panel {      
+      background-color: aliceblue;
+      margin: 80px auto;
+          
+    }
+
+  </style>
+
+{% endblock %}
+
